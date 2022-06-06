@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= page_title %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js"
+      defer
+    ></script>
+  </head>
+  <style>
+    .header-right {
+      width: calc(100% - 3.5rem);
+    }
+    .sidebar:hover {
+      width: 16rem;
+    }
+    @media only screen and (min-width: 768px) {
+      .header-right {
+        width: calc(100% - 16rem);
+      }
+    }
+  </style>
+  <body>
+    <div x-data="{ open1: false, open2:false, open3:false, open4:false  }">
+      <div
+        class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white text-black"
+      >
+        <!-- Header -->
+
+        <%- include('../layouts/navbar'); %>
+
+        <!-- Header -->
+
+        <!-- Sidebar -->
+
+        <%- include('../layouts/sidebar'); %>
+
+        <!-- Sidebar -->
+        <div class="h-full ml-14 md:ml-64">
+          <section class="max-w-4xl p-6  bg-white rounded-md shadow-md mx-auto mt-64">
+            <h2 class="text-lg font-semibold text-gray-700 capitalize">Add Subject</h2>
+            
+            <form method="POST" action="/subjects/add">
+                <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                  
+                    <div>
+                        <label class="text-gray-700" for="subName">Subject Name</label>
+                        <input id="subName" name="subName" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring">
+                    </div>
+
+                    <div class="">
+                        <label class="text-gray-700" for="id"></label>
+                        <input name="id" id="id"  type="hidden" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring">                     
+                    </div>
+      
+                </div>
+      
+                <div class="flex justify-end mt-6">
+                    <button type="submit" class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-blue-800 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Save</button>
+                </div>
+            </form>
+        </section>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+
+
+
+

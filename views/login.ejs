@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js" integrity="sha512-6PM0qYu5KExuNcKt5bURAoT6KCThUmHRewN3zUFNaoI6Di7XJPTMoT6K0nsagZKk2OB4L7E3q1uQKHNHd4stIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body class="bg-gradient-to-r from-sky-500 to-indigo-500">
+
+    <% if(message.error) { %>
+        <p><%- message.error %></p>
+    <% } %>
+
+    <% if(message.success) { %>
+        <p><%- message.success %></p>
+    <% } %>
+
+    <form action="/login" method="post" class="w-[300px] mx-auto my-[200px] shadow-sm shadow-[#444] bg-white">
+
+        <div class="bg-[#000] text-white py-[10px] text-center text-[25px]">
+            <h1>Login</h1>
+        </div>
+
+        <div class="px-4">
+            <div class="mt-6 flex border-b-[1px] border-[#444]">
+                <i class="fa-solid fa-user mr-4 text-[#444]"></i>
+                <input type="email" name="email" id="email" class="w-full outline-none" placeholder="Enter Email">
+            </div>
+    
+            <div class="flex mt-6 border-b-[1px] border-[#444]">
+                <i class="fa-solid fa-lock mr-4 text-[#444]"></i>
+                <input type="password" name="password" id="password" class="w-full outline-none" placeholder="Enter Password">
+            </div>
+    
+            <div>
+                <input type="submit" class="bg-[#000] text-white mt-6 py-2 px-4 mb-4 hover:bg-opacity-80">
+            </div>
+        </div>
+        
+    </form>
+
+
+    
+</body>
+</html>
