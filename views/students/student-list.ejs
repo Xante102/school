@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= page_title %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js"
+      defer
+    ></script>
+  </head>
+  <style>
+    .header-right {
+      width: calc(100% - 3.5rem);
+    }
+    .sidebar:hover {
+      width: 16rem;
+    }
+    @media only screen and (min-width: 768px) {
+      .header-right {
+        width: calc(100% - 16rem);
+      }
+    }
+  </style>
+  <body>
+    <div x-data="{ open1: false, open2:false, open3:false, open4:false  }">
+      <div
+        class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white text-black"
+      >
+        <!-- Header -->
+
+        <%- include('../layouts/navbar'); %>
+
+        <!-- Header -->
+
+        <!-- Sidebar -->
+
+        <%- include('../layouts/sidebar'); %>
+
+        <!-- Sidebar -->
+        <div class="h-full ml-14 md:ml-64">
+          <div class="overflow-x-auto">
+            <div
+              class="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center font-sans overflow-hidden"
+            >
+              <div class="w-full lg:w-5/6">
+                <div class="bg-white shadow-md rounded my-6">
+                  <table class="min-w-max w-full table-auto">
+                    <thead>
+                      <tr
+                        class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal"
+                      >
+                        <!-- <th class="py-3 px-6 text-center">Id</th> -->
+                        <th class="py-3 px-6 text-center">Student Name</th>
+                        <th class="py-3 px-6 text-center">Gender</th>
+                        <th class="py-3 px-6 text-center">DOB</th>
+                        <th class="py-3 px-6 text-center">Course</th>
+                        <th class="py-3 px-6 text-center">Fees Paid</th>
+                        <th class="py-3 px-6 text-center">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-gray-600 text-sm font-light">
+                      <% if(data.length) { for (let i = 0; i < data.length; i++)
+                      { %>
+                      <tr class="border-b border-gray-200 hover:bg-gray-100">
+                        <!-- <td class="py-3 px-6 text-center">
+                          <div class="flex items-center justify-center">
+                            <span class="font-medium"><%= data[i].id %></span>
+                          </div>
+                        </td> -->
+                        <td class="py-3 px-6 text-center">
+                          <div class="flex justify-center space-x-3 items-center">
+                            <span><%= data[i].f_name %></span>
+                            <span><%= data[i].l_name %></span>
+                          </div>
+                        </td>
+                        <td class="py-3 px-6 text-center">
+                          <div class="flex items-center justify-center">
+                            <span><%= data[i].gender %></span>
+                          </div>
+                        </td>
+                        <td class="py-3 px-6 text-center">
+                          <div class="flex items-center justify-center">
+                            <span><%= new
+                                Date(data[i].dob ).toDateString('fr-CA')%></span>
+                          </div>
+                        </td>
+                        <td class="py-3 px-6 text-center">
+                          <div class="flex items-center justify-center">
+                            <span><%= data[i].course_name %></span>
+                          </div>
+                        </td>
+                        <td class="py-3 px-6 text-center">
+                          <div class="flex items-center justify-center">
+                            <span><%= data[i].fees_paid %></span>
+                          </div>
+                        </td>
+                        <td class="py-3 px-6 text-center">
+                          <div class="flex item-center justify-center">
+                            <a
+                              href="/students/aggregate/<%= data[i].id %>"
+                              class="w-4 mr-2 transform hover:text-blue-500 hover:scale-110 cursor-pointer"
+                            >
+                            <svg  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 19C2 20.6569 3.34315 22 5 22H19C20.6569 22 22 20.6569 22 19V5C22 3.34315 20.6569 2 19 2H5C3.34315 2 2 3.34315 2 5V19ZM20 19C20 19.5523 19.5523 20 19 20H5C4.44772 20 4 19.5523 4 19V5C4 4.44772 4.44772 4 5 4H10V12.0111L12.395 12.0112L14.0001 9.86419L15.6051 12.0112H18.0001L18 4H19C19.5523 4 20 4.44772 20 5V19ZM16 4H12V9.33585L14.0001 6.66046L16 9.33571V4Z" fill="currentColor" /></svg>
+                            </a>
+                            <a
+                              href="/students/edit/<%= data[i].id %>"
+                              class="w-4 mr-2 transform hover:text-blue-500 hover:scale-110 cursor-pointer"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                                />
+                              </svg>
+                            </a>
+                            <a
+                              href="/students/delete/<%= data[i].id %>"
+                              class="w-4 mr-2 transform hover:text-blue-500 hover:scale-110"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                />
+                              </svg>
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <% } } else { %>
+                      <tr>
+                        <td
+                          colspan="7"
+                          class="px-4 py-3 font-semibold text-center"
+                        >
+                          NO STUDENTS DATA
+                        </td>
+                      </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

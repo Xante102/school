@@ -13,9 +13,8 @@ const app = express();
 const conn = require("./lib/db");
 
 // --------------------------------------------------- R O U T I N G    S E C T I O N ---------------------------------------------------
-// const indexRoute = require("./routes/index");
-// const authRoute = require("./routes/auth");
-// const teachersRoute = require("./routes/teachers");
+const authRoute = require("./routes/auth");
+const studentsRoute = require("./routes/students");
 const subjectsRoute = require("./routes/subjects");
 const coursesRoute = require("./routes/courses");
 const teachersRoute = require("./routes/teachers");
@@ -49,10 +48,9 @@ app.use(flash());
 app.use("/teachers", teachersRoute);
 app.use("/subjects", subjectsRoute);
 app.use("/courses", coursesRoute);
-// app.use("/teachers", teachersRoute);
+app.use("/students", studentsRoute);
 app.use('/dashboard', dashboardRoute);
-// app.use('/auth', authRoute);
-// app.use("/", indexRoute);
+app.use('/auth', authRoute);
 // End Routing Middleware
 
 app.listen(port, () => console.log(`Listening on port ${port}..`));

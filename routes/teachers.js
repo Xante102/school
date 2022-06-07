@@ -5,24 +5,31 @@ const conn = require("../lib/db");
 // Get Route to display the Teachers List Screen
 router.get("/list", (req, res, next) => {
   const sql = "SELECT * FROM teachers";
-
-  conn.query(sql, (err, rows) => {
-    if (err) {
-      //
-    } else {
-      res.render("./teachers/teacher-list", {
-        data: rows,
-        page_title: "Teachers",
-      });
-    }
-  });
+  if (req.session.isLoggedIn == true) {
+    conn.query(sql, (err, rows) => {
+      if (err) {
+        //
+      } else {
+        res.render("./teachers/teacher-list", {
+          data: rows,
+          page_title: "Teachers",
+        });
+      }
+    });
+  } else {
+    res.redirect("/auth/login");
+  }
 });
 
 // Get Route to display the Teacher Create Screen
 router.get("/create", (req, res, next) => {
-  res.render("./teachers/add-teacher", {
-    page_title: "Create Teacher",
-  });
+  if (req.session.isLoggedIn == true) {
+    res.render("./teachers/add-teacher", {
+      page_title: "Create Teacher",
+    });
+  } else {
+    res.redirect("/auth/login");
+  }
 });
 
 // Add Teacher Route
@@ -35,27 +42,35 @@ router.post("/add", (req, res) => {
     phone_num: req.body.pNum,
   };
 
-  conn.query(`INSERT INTO teachers SET ?`, sql, (err, results) => {
-    if (err) throw err;
+  if (req.session.isLoggedIn == true) {
+    conn.query(`INSERT INTO teachers SET ?`, sql, (err, results) => {
+      if (err) throw err;
 
-    res.redirect("/teachers/list");
-  });
+      res.redirect("/teachers/list");
+    });
+  } else {
+    res.redirect("/auth/login");
+  }
 });
 
 // Edit Teacher Route
 router.get("/edit/:id", (req, res, next) => {
   const sql = "SELECT * FROM teachers WHERE id =" + req.params.id;
 
-  conn.query(sql, (err, rows) => {
-    if (err) {
-      //
-    } else {
-      res.render("./teachers/edit-teacher", {
-        page_title: "Edit Teacher",
-        data: rows[0],
-      });
-    }
-  });
+  if (req.session.isLoggedIn == true) {
+    conn.query(sql, (err, rows) => {
+      if (err) {
+        //
+      } else {
+        res.render("./teachers/edit-teacher", {
+          page_title: "Edit Teacher",
+          data: rows[0],
+        });
+      }
+    });
+  } else {
+    res.redirect("/auth/login");
+  }
 });
 
 // Update Teacher Route
@@ -74,26 +89,34 @@ router.post("/update", (req, res, next) => {
     "'WHERE id =" +
     req.body.id;
 
-  conn.query(sql, (err, rows) => {
-    if (err) {
-      //
-    } else {
-      res.redirect("/teachers/list");
-    }
-  });
+  if (req.session.isLoggedIn == true) {
+    conn.query(sql, (err, rows) => {
+      if (err) {
+        //
+      } else {
+        res.redirect("/teachers/list");
+      }
+    });
+  } else {
+    res.redirect("/auth/login");
+  }
 });
 
-// Delete Subject Route
+// Delete Teacher Route
 router.get("/delete/:id", (req, res, next) => {
   const sql = "DELETE FROM teachers WHERE id=" + req.params.id;
 
-  conn.query(sql, (err, rows) => {
-    if (err) {
-      //
-    } else {
-      res.redirect("/teachers/list");
-    }
-  });
+  if (req.session.isLoggedIn == true) {
+    conn.query(sql, (err, rows) => {
+      if (err) {
+        //
+      } else {
+        res.redirect("/teachers/list");
+      }
+    });
+  } else {
+    res.redirect("/auth/login");
+  }
 });
 
 module.exports = router;
