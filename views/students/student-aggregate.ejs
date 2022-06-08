@@ -83,7 +83,8 @@
                         </td>
                         <td class="py-3 px-6 text-center">
                           <div class="flex items-center justify-center">
-                            <span><%= data[i].dob %></span>
+                            <span><%= new
+                              Date(data[i].dob ).toDateString('fr-CA')%></span>
                           </div>
                         </td>
                         <td class="py-3 px-6 text-center">
