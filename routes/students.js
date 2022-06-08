@@ -24,30 +24,6 @@ router.get("/list", (req, res, next) => {
   }
 });
 
-// Get Route to display the Student Aggregate Screen
-router.get("/aggregate/:id", (req, res, next) => {
-  const sql =
-    "SELECT st.f_name, st.l_name, MIN(st.fees_paid) AS fees_paid , st.dob, st.gender, st.course_id, COUNT(cs.course_name) AS course_count" +
-    " FROM students st, courses cs" +
-    " WHERE st.course_id = cs.id" +
-    " AND st.id =" +
-    req.params.id +
-    " GROUP BY st.f_name, st.l_name";
-  if (req.session.isLoggedIn == true) {
-    conn.query(sql, (err, rows) => {
-      if (err) {
-        //
-      } else {
-        res.render("./students/student-aggregate", {
-          data: rows,
-          page_title: "Students",
-        });
-      }
-    });
-  } else {
-    res.redirect("/auth/login");
-  }
-});
 
 // Get Route to display the Student Create Screen
 router.get("/create", (req, res, next) => {
